@@ -1,0 +1,14 @@
+version: "3"
+services:
+  app:
+    image: dockersamples/visualizer
+    ports:
+      - 9000:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      # 特定のコンテナをクラスタ上の全ノードに配位できる設定
+      mode: global
+      # managerノードだけに配置されるように設定
+      placement:
+        constraints: [node.role == manager]
